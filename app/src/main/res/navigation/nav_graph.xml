@@ -1,0 +1,65 @@
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/mainFragment">
+
+    <fragment
+        android:id="@+id/mainFragment"
+        android:name="com.kmetabus.forwarder.ui.MainFrg"
+        android:label="Menu"
+        tools:layout="@layout/fragment_main">
+        <action
+            android:id="@+id/action_main_to_list"
+            app:destination="@id/listFragment" />
+        <action
+            android:id="@+id/action_main_to_qlist"
+            app:destination="@id/QlistFragment" />
+        <action
+            android:id="@+id/action_main_to_perlist"
+            app:destination="@id/PerlistFragment" />
+    </fragment>
+
+    <fragment
+        android:id="@+id/listFragment"
+        android:name="com.kmetabus.forwarder.ui.ListFrg"
+        android:label="Menu"
+        tools:layout="@layout/fragment_list">
+        <action
+            android:id="@+id/action_main_to_qsalein"
+            app:destination="@id/QsaleInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/QlistFragment"
+        android:name="com.kmetabus.forwarder.ui.QlistFrg"
+        android:label="Menu"
+        tools:layout="@layout/fragment_qlist">
+    </fragment>
+    <fragment
+        android:id="@+id/QsaleInFragment"
+        android:name="com.kmetabus.forwarder.ui.QsaleInFrg"
+        android:label="Menu"
+        tools:layout="@layout/frg_qsalein">
+        <action
+            android:id="@+id/action_qIn_to_qlist"
+            app:destination="@id/QlistFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/PerlistFragment"
+        android:name="com.kmetabus.forwarder.ui.PerlistFrg"
+        android:label="Menu"
+        tools:layout="@layout/fragment_perlist">
+        <action
+            android:id="@+id/action_main_to_persalein"
+            app:destination="@id/PsaleInFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/PsaleInFragment"
+        android:name="com.kmetabus.forwarder.ui.PersaleInFrg"
+        android:label="Menu"
+        tools:layout="@layout/frg_persalein">
+        <action
+            android:id="@+id/action_perIn_to_perlist"
+            app:destination="@id/PerlistFragment" />
+    </fragment>
+</navigation>

@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:gravity="center">
+    <ImageView
+        android:id="@+id/budong"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:src="@drawable/btn01"
+        android:scaleType="fitXY" />
+    <ImageView
+        android:id="@+id/qsale"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:src="@drawable/btn03"
+        android:scaleType="fitXY" />
+    <ImageView
+        android:id="@+id/persale"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="1"
+        android:gravity="center"
+        android:src="@drawable/btn03"
+        android:scaleType="fitXY" />
+
+</LinearLayout>
+

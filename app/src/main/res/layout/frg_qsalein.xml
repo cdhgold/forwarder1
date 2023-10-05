@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/text_view"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/purple_700"
+            android:textAlignment="center"
+            android:text="Donate(기부안내):  kmetabus.com 에서 하실 수 있습니다.\n  감사합니다."
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/qsale_cont"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="급매 내용" />
+        <Button
+            android:id="@+id/qsale_btn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/black"
+            android:text="등록"/>
+
+    </LinearLayout>
+</androidx.constraintlayout.widget.ConstraintLayout>
