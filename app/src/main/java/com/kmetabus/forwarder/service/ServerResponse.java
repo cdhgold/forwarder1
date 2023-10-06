@@ -1,6 +1,6 @@
 package com.kmetabus.forwarder.service;
 
-import com.kmetabus.bugongsan.vo.ListItem;
+import com.kmetabus.forwarder.vo.ListItem;
 
 import java.util.List;
 
@@ -30,42 +30,20 @@ public class ServerResponse {
             .client(UnsafeOkHttpClient.getUnsafeOkHttpClient())
             .addConverterFactory(GsonConverterFactory.create())
             .build();
-    // 부동산 목록을 가져온다.
-    public  void getBs(String gu, String bunm, Callback<ResponseBody> callback){
+    // forwarder 목록을 가져온다.
+    public  void getForwarder(String forwarder, String addr, Callback<ResponseBody> callback){
         List<ListItem> list= null;
         apiService = retrofit.create(ApiService.class);
-        call = apiService.getBudongsan(gu, bunm );
+        call = apiService.getForwarder(forwarder, addr );
+        call.enqueue(callback);
+    }
+    public  void saveForwarder(String json , Callback<ResponseBody> callback){
+        List<ListItem> list= null;
+        apiService = retrofit.create(ApiService.class);
+        RequestBody requestBody = RequestBody.create(json, MediaType.parse("application/json; charset=utf-8"));
+        call = apiService.saveForwarder(requestBody);
         call.enqueue(callback);
     }
 
-    public  void saveQsale(String json , Callback<ResponseBody> callback){
-        List<ListItem> list= null;
-        apiService = retrofit.create(ApiService.class);
-        RequestBody requestBody = RequestBody.create(json, MediaType.parse("application/json; charset=utf-8"));
-        call = apiService.saveQsale(requestBody);
-        call.enqueue(callback);
-    }
-    // 급매리스트
-    public  void getQsale(String search, Callback<ResponseBody> callback){
-        List<ListItem> list= null;
-        apiService = retrofit.create(ApiService.class);
-        call = apiService.getQsale( search);
-        call.enqueue(callback);
-    }
-    // 개인 급매
-    public  void savePsale(String json , Callback<ResponseBody> callback){
-        List<ListItem> list= null;
-        apiService = retrofit.create(ApiService.class);
-        RequestBody requestBody = RequestBody.create(json, MediaType.parse("application/json; charset=utf-8"));
-        call = apiService.savePsale(requestBody);
-        call.enqueue(callback);
-    }
-    // 급매리스트
-    public  void getPsale(String search, Callback<ResponseBody> callback){
-        List<ListItem> list= null;
-        apiService = retrofit.create(ApiService.class);
-        call = apiService.getPsale( search);
-        call.enqueue(callback);
-    }
 
 }

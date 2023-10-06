@@ -21,12 +21,12 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.kmetabus.bugongsan.R;
-import com.kmetabus.bugongsan.service.ServerResponse;
-import com.kmetabus.bugongsan.service.Util;
-import com.kmetabus.bugongsan.vo.ListAdapter;
-import com.kmetabus.bugongsan.vo.ListItem;
-import com.kmetabus.bugongsan.vo.OnListItemClickListener;
+import com.kmetabus.forwarder.R;
+import com.kmetabus.forwarder.service.ServerResponse;
+import com.kmetabus.forwarder.service.Util;
+import com.kmetabus.forwarder.vo.ListAdapter;
+import com.kmetabus.forwarder.vo.ListItem;
+import com.kmetabus.forwarder.vo.OnListItemClickListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,18 +42,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /*
-공인중개사 ( 찾기기능 - 구별(광진구..), 부동산명으로 )
+포워더 업체정보
  */
 public class ListFrg extends Fragment  implements OnListItemClickListener {
 
     private RecyclerView recyclerView;
     private ListAdapter listAdapter;
-    private EditText stext;
+    private EditText search_forw;
+    private EditText search_addr;
     private Button sbtn; // 조회 버튼
     private Button inbtn; // 급매정보 등록 버튼
     private AdView mAdView;
-
-    Spinner sgu;    // 구 -서울
 
 
     @Nullable
@@ -72,61 +71,26 @@ public class ListFrg extends Fragment  implements OnListItemClickListener {
         AdRequest adRequest = new AdRequest.Builder().build();
         mAdView.loadAd(adRequest);
 
-        sgu = (Spinner)view.findViewById(R.id.gu);
-        stext = (EditText)view.findViewById(R.id.search);
+        search_forw = (EditText)view.findViewById(R.id.search1);// 업체명으로 검색
+        search_addr = (EditText)view.findViewById(R.id.search2);// 주소로 검색
         sbtn = (Button)view.findViewById(R.id.retrieve);
         recyclerView = view.findViewById(R.id.list_recyclerview);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext()); // 필수
         recyclerView.setLayoutManager(linearLayoutManager); // 필수
         ProgressBar progressBar = view.findViewById(R.id.progress_bar);
-// Spinner에 표시할 데이터
-        List<String> spinnerArray =  new ArrayList<String>();
-        spinnerArray.add("강남구");
-        spinnerArray.add("강동구");
-        spinnerArray.add("강서구");
-        spinnerArray.add("강북구");
-        spinnerArray.add("관악구");
-        spinnerArray.add("광진구");
-        spinnerArray.add("구로구");
-        spinnerArray.add("금천구");
-        spinnerArray.add("노원구");
-        spinnerArray.add("동대문구");
-        spinnerArray.add("도봉구");
-        spinnerArray.add("동작구");
-        spinnerArray.add("마포구");
-        spinnerArray.add("서대문구");
-        spinnerArray.add("성동구");
-        spinnerArray.add("성북구");
-        spinnerArray.add("서초구");
-        spinnerArray.add("송파구");
-        spinnerArray.add("영등포구");
-        spinnerArray.add("용산구");
-        spinnerArray.add("양천구");
-        spinnerArray.add("은평구");
-        spinnerArray.add("종로구");
-        spinnerArray.add("중구");
-        spinnerArray.add("중랑구");
-
-// ArrayAdapter 생성
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(
-                getActivity(), android.R.layout.simple_spinner_item, spinnerArray);
-        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-// Spinner에 ArrayAdapter 설정
-        sgu.setAdapter(adapter);
 
 
-        // 찾기, 서버통신후(공통모듈)  목록을 보여준다.
+        // 찾기, 서버통신후(공통모듈)  목록을 보여준다. 버튼으로 조회시
         sbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //recyclerView.setAdapter(null);
-                String gu = sgu.getSelectedItem().toString();
-                String bunm = stext.getText().toString();
+                String forwarder = search_forw.getText().toString();
+                String addr = search_addr.getText().toString();
                 ServerResponse req = new ServerResponse();
-                if("".equals(gu))gu = "X";
-                if("".equals(bunm))bunm = "X";
-                req.getBs(gu,bunm , new Callback<ResponseBody>() {
+
+                req.getForwarder(forwarder,addr , new Callback<ResponseBody>() {
 
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -140,11 +104,11 @@ public class ListFrg extends Fragment  implements OnListItemClickListener {
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                                     String seq =  jsonObject.getString("seq");
-                                    String nm =  jsonObject.getString("nm");
+                                    String nm =  jsonObject.getString("cnm");
                                     String juso =  jsonObject.getString("juso");
                                     String tel =  jsonObject.getString("tel");
-                                    String dong =  jsonObject.getString("dong");
-                                    ListItem vo = new ListItem(seq,nm,tel,juso,dong, null,null,false ,null);
+                                    String hp =  jsonObject.getString("hp");
+                                    ListItem vo = new ListItem(seq,nm,tel,juso,hp, null,null,false ,null);
                                     list.add(vo);
 
                                 }
@@ -165,7 +129,7 @@ public class ListFrg extends Fragment  implements OnListItemClickListener {
                 });
             }
         });
-        fetchData(progressBar );
+        fetchData(progressBar ); // default
         return view;
 
     }
@@ -175,8 +139,8 @@ public class ListFrg extends Fragment  implements OnListItemClickListener {
         }else {
             listAdapter = new ListAdapter(list, this, null);
             recyclerView.setAdapter(listAdapter);
-            progressBar.setVisibility(View.GONE);
         }
+        progressBar.setVisibility(View.GONE);
     }
     @Override
     public void onListItemClick(View v, ListItem listItem) {
@@ -205,11 +169,9 @@ public class ListFrg extends Fragment  implements OnListItemClickListener {
         ServerResponse req = new ServerResponse();
         Response<ResponseBody> response;
         try {
-            String gu = sgu.getSelectedItem().toString();
-            String bunm = stext.getText().toString();
-            if("".equals(gu))gu = "X";
-            if("".equals(bunm))bunm = "X";
-            req.getBs(gu,bunm , new Callback<ResponseBody>() {
+            String forwarder = search_forw.getText().toString();
+            String addr = search_addr.getText().toString();
+            req.getForwarder(forwarder,addr , new Callback<ResponseBody>() {
 
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -223,11 +185,11 @@ public class ListFrg extends Fragment  implements OnListItemClickListener {
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 String seq =  jsonObject.getString("seq");
-                                String nm =  jsonObject.getString("nm");
+                                String nm =  jsonObject.getString("cnm");
                                 String juso =  jsonObject.getString("juso");
                                 String tel =  jsonObject.getString("tel");
-                                String dong =  jsonObject.getString("dong");
-                                ListItem vo = new ListItem(seq,nm,tel,juso,dong, null,null,false ,null);
+                                String hp =  jsonObject.getString("hp");
+                                ListItem vo = new ListItem(seq,nm,tel,juso,hp, null,null,false ,null);
                                 list.add(vo);
 
                             }

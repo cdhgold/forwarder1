@@ -19,12 +19,12 @@ import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.initialization.InitializationStatus;
 import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
-import com.kmetabus.bugongsan.R;
-import com.kmetabus.bugongsan.service.ServerResponse;
-import com.kmetabus.bugongsan.service.Util;
-import com.kmetabus.bugongsan.vo.ListAdapter;
-import com.kmetabus.bugongsan.vo.ListItem;
-import com.kmetabus.bugongsan.vo.OnListItemClickListener;
+import com.kmetabus.forwarder.R;
+import com.kmetabus.forwarder.service.ServerResponse;
+import com.kmetabus.forwarder.service.Util;
+import com.kmetabus.forwarder.vo.ListAdapter;
+import com.kmetabus.forwarder.vo.ListItem;
+import com.kmetabus.forwarder.vo.OnListItemClickListener;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -42,7 +42,7 @@ import retrofit2.Response;
 /*
 급매 화면
  */
-public class QlistFrg extends Fragment    implements OnListItemClickListener {
+public class QalistFrg extends Fragment    implements OnListItemClickListener {
 
     private RecyclerView recyclerView;
     private ListAdapter listAdapter;

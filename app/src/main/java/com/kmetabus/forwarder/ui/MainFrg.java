@@ -31,31 +31,41 @@ public class MainFrg extends Fragment   {
         return view;
 
     }
+
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        ImageView budong = view.findViewById(R.id.budong);
-        // 공인중개사 화면
-        budong.setOnClickListener(new View.OnClickListener() {
+        ImageView forwarder = view.findViewById(R.id.forwarder);
+        // 업체정보
+        forwarder.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(MainFrg.this)
                         .navigate(R.id.action_main_to_list);
             }
         });
-        // 급매화면
-        ImageView qsale = view.findViewById(R.id.qsale);
-        qsale.setOnClickListener(new View.OnClickListener() {
+        // qa
+        ImageView qa = view.findViewById(R.id.qa);
+        qa.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(MainFrg.this)
-                        .navigate(R.id.action_main_to_qlist);
+                        .navigate(R.id.action_main_to_qalist);
             }
         });
-        // 개인 급매화면
-        ImageView psale = view.findViewById(R.id.persale);
-        psale.setOnClickListener(new View.OnClickListener() {
+        // job
+        ImageView job = view.findViewById(R.id.job);
+        job.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                NavHostFragment.findNavController(MainFrg.this)
+                        .navigate(R.id.action_main_to_perlist);
+            }
+        });
+        // kmetabus
+        ImageView kmetabus = view.findViewById(R.id.kmetabus);
+        kmetabus.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(MainFrg.this)

@@ -11,34 +11,41 @@
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/psale_nm"
+            android:id="@+id/forw_nm"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:hint="이름" />
+            android:hint="업체명" />
         <EditText
-            android:id="@+id/psale_tel"
+            android:id="@+id/forw_tel"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:hint="연락처" />
         <EditText
-            android:id="@+id/psale_addr"
+            android:id="@+id/forw_hp"
+            android:layout_width="match_parent"
+            android:layout_height="55dp"
+            android:layout_marginLeft="16dp"
+            android:layout_marginRight="16dp"
+            android:hint="홈페이지" />
+        <EditText
+            android:id="@+id/forw_addr"
             android:layout_width="match_parent"
             android:layout_height="55dp"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
             android:hint="주소" />
         <EditText
-            android:id="@+id/psale_cont"
+            android:id="@+id/forw_cont"
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
             android:layout_marginLeft="16dp"
             android:layout_marginRight="16dp"
-            android:hint="급매 내용" />
+            android:hint="회사소개" />
         <Button
             android:id="@+id/qsale_btn"
             android:layout_width="match_parent"

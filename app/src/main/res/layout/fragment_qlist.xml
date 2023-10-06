@@ -16,7 +16,7 @@
             android:id="@+id/titleTextView"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="부동산 급매정보"
+            android:text="Forwarder Q / A"
             android:textSize="20sp"
             android:textStyle="bold"
             android:gravity="center"
@@ -37,14 +37,19 @@
                 android:layout_marginLeft="16dp"
                 android:layout_marginRight="16dp"
                 android:layout_weight="1"
-                android:hint="공인중개사무소명"/>
+                android:hint="내 용"/>
             <Button
                 android:id="@+id/retrieve"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:textColor="@color/white"
                 android:text="찾기"/>
-
+            <Button
+                android:id="@+id/save"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="등록"/>
         </LinearLayout>
 
 

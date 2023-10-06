@@ -21,10 +21,10 @@ import com.google.android.gms.ads.LoadAdError;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.gson.Gson;
-import com.kmetabus.bugongsan.R;
-import com.kmetabus.bugongsan.service.ServerResponse;
-import com.kmetabus.bugongsan.service.Util;
-import com.kmetabus.bugongsan.vo.Psale;
+import com.kmetabus.forwarder.R;
+import com.kmetabus.forwarder.service.ServerResponse;
+import com.kmetabus.forwarder.service.Util;
+import com.kmetabus.forwarder.vo.Psale;
 
 import java.io.IOException;
 
@@ -49,7 +49,7 @@ public class PersaleInFrg extends Fragment   {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //layout
-        View view = inflater.inflate(R.layout.frg_persalein, container, false); // 개인 급매 등록화면
+        View view = inflater.inflate(R.layout.frg_forwin, container, false); // 개인 급매 등록화면
 
         savebtn = (Button)view.findViewById(R.id.qsale_btn); // 저장버튼
         cont = (EditText)view.findViewById(R.id.psale_cont); // 급매정보

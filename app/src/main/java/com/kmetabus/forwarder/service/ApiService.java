@@ -10,28 +10,15 @@ import retrofit2.http.POST;
 import retrofit2.http.Path;
 
 public interface ApiService {
-    // 공인중개사 목록 gu: 서울 구 명 , office는 공인중개사소 명
+    // 포워더업체정보 조회 (업체명 또는 주소
     @Headers("Accept: application/json")
-    @GET("/budongsan/list/{gu}/{office}")
-    Call<ResponseBody> getBudongsan(@Path("gu") String gu, @Path("office") String office);
+    @GET("/Forward/list/{forwarder}/{addr}")
+    Call<ResponseBody> getForwarder(@Path("forwarder") String forwarder, @Path("addr") String addr);
 
-    // 급매정보 등록
+    // 신규업체등록
     @Headers("Accept: application/json")
-    @POST("/budongsan/qsale/")
-    Call<ResponseBody> saveQsale( @Body RequestBody qsale);
+    @POST("/Forward/save/")
+    Call<ResponseBody> saveForwarder( @Body RequestBody forwarder);
 
-    // 급매리스트, param : 공인중개소명
-    @Headers("Accept: application/json")
-    @GET("/budongsan/getQsale/{search}/")
-    Call<ResponseBody> getQsale( @Path("search") String search);
-
-    //  개인급매리스트, param : 공인중개소명
-    @Headers("Accept: application/json")
-    @GET("/budongsan/getPsale/{addr}/")
-    Call<ResponseBody> getPsale(   @Path("addr") String addr );
-    // 개인 급매정보 등록
-    @Headers("Accept: application/json")
-    @POST("/budongsan/psale/")
-    Call<ResponseBody> savePsale( @Body RequestBody psale);
 
 }
