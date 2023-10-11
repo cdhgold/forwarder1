@@ -54,7 +54,7 @@
 
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/qlist_recyclerview"
+            android:id="@+id/list_recyclerview"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1"/>

@@ -40,47 +40,47 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /*
-급매 화면
+포워더 q & a
  */
-public class QalistFrg extends Fragment    implements OnListItemClickListener {
+public class qalistFrg extends Fragment  implements OnListItemClickListener {
 
     private RecyclerView recyclerView;
     private ListAdapter listAdapter;
-    private EditText tsearch;
-    private Button qbtn;
+    private EditText search_qa;
+    private EditText search_addr;
+    private Button sbtn; // 조회 버튼
+    private Button inbtn; //  등록 버튼
     private AdView mAdView;
+
+
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //layout
-        View view = inflater.inflate(R.layout.fragment_qlist, container, false);
-
+        View view = inflater.inflate(R.layout.fragment_qalist, container, false);
         MobileAds.initialize(getContext(), new OnInitializationCompleteListener() {
             @Override
             public void onInitializationComplete(InitializationStatus initializationStatus) {
             }
         });
 
-        mAdView =(AdView)view. findViewById(R.id.qadView);
-        AdRequest adRequest = new AdRequest.Builder().build();
-        mAdView.loadAd(adRequest);
-
-        qbtn = (Button)view.findViewById(R.id.retrieve);
-        tsearch =  (EditText)view.findViewById(R.id.qsearch);
-        recyclerView = view.findViewById(R.id.qlist_recyclerview);
+        search_qa = (EditText)view.findViewById(R.id.qsearch);// 질문 검색
+        sbtn = (Button)view.findViewById(R.id.retrieve);
+        recyclerView = view.findViewById(R.id.list_recyclerview);
         recyclerView.setHasFixedSize(true);
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext()); // 필수
         recyclerView.setLayoutManager(linearLayoutManager); // 필수
         ProgressBar progressBar = view.findViewById(R.id.qprogress_bar);
 
-        String bunm = tsearch.getText().toString();
-        // 찾기, 서버통신후(공통모듈)  목록을 보여준다.
-        qbtn.setOnClickListener(new View.OnClickListener() {
+        // 찾기, 서버통신후(공통모듈)  목록을 보여준다. 버튼으로 조회시
+        sbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 //recyclerView.setAdapter(null);
+                String search = search_qa.getText().toString();
                 ServerResponse req = new ServerResponse();
-                req.getQsale( bunm , new Callback<ResponseBody>() {
+
+                req.getFqa(search,"1" , new Callback<ResponseBody>() {
 
                     @Override
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
@@ -90,16 +90,14 @@ public class QalistFrg extends Fragment    implements OnListItemClickListener {
                                 progressBar.setVisibility(View.VISIBLE);
                                 String jsonString = response.body().string();
                                 JSONArray jsonArray = new JSONArray(jsonString);
-                                List<ListItem> list = new ArrayList<ListItem>();
+                                List<ListItem>  list = new ArrayList<ListItem>();
                                 for (int i = 0; i < jsonArray.length(); i++) {
                                     JSONObject jsonObject = jsonArray.getJSONObject(i);
                                     String seq =  jsonObject.getString("seq");
-                                    String nm =  jsonObject.getString("nm");
-                                    String juso =  jsonObject.getString("juso");
-                                    String tel =  jsonObject.getString("tel");
-                                    String dong =  jsonObject.getString("dong");
-                                    String cont =  jsonObject.getString("cont");
-                                    ListItem vo = new ListItem(seq,nm,tel,juso,dong, cont, null,false ,null);
+                                    String subject =  jsonObject.getString("subject");
+                                    String msg =  jsonObject.getString("msg");
+                                    String updt =  jsonObject.getString("updt");
+                                    ListItem vo = new ListItem(seq,subject,msg,updt,null, null,null,false ,null);
                                     list.add(vo);
 
                                 }
@@ -120,7 +118,7 @@ public class QalistFrg extends Fragment    implements OnListItemClickListener {
                 });
             }
         });
-        fetchData(progressBar,bunm);
+        fetchData(progressBar ); // default
         return view;
 
     }
@@ -128,24 +126,15 @@ public class QalistFrg extends Fragment    implements OnListItemClickListener {
         if(list.size() ==0){
             Util.alert(getContext(),"Data가 없습니다.");
         }else {
-            listAdapter = new ListAdapter(list, this,"qsale");
+            listAdapter = new ListAdapter(list, this, null);
             recyclerView.setAdapter(listAdapter);
         }
         progressBar.setVisibility(View.GONE);
     }
-
-    @Override
-    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-
-    }
-
     @Override
     public void onListItemClick(View v, ListItem listItem) {
-
     }
-
-    public void fetchData(ProgressBar progressBar,String bnum) {
+    private void fetchData(ProgressBar progressBar ) {
         progressBar.setVisibility(View.VISIBLE);
 
         // 백그라운드 스레드에서 실행
@@ -153,7 +142,7 @@ public class QalistFrg extends Fragment    implements OnListItemClickListener {
             @Override
             public void run() {
 
-                getServerData(bnum,progressBar);
+                getServerData( progressBar);
                 // UI 스레드에서 실행
                 getActivity().runOnUiThread(new Runnable() {
                     @Override
@@ -165,29 +154,29 @@ public class QalistFrg extends Fragment    implements OnListItemClickListener {
         }).start();
     }
 
-    private List<ListItem> getServerData(String bunm,ProgressBar progressBar) {
+    private List<ListItem> getServerData( ProgressBar progressBar) {
         ServerResponse req = new ServerResponse();
         Response<ResponseBody> response;
         try {
-            req.getQsale( bunm , new Callback<ResponseBody>() {
+            String search = search_qa.getText().toString();
+            req.getForwarder(search,"1" , new Callback<ResponseBody>() {
 
                 @Override
                 public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                     // Handle the response here
                     if(response.isSuccessful()){
                         try {
+                            progressBar.setVisibility(View.VISIBLE);
                             String jsonString = response.body().string();
                             JSONArray jsonArray = new JSONArray(jsonString);
-                            List<ListItem> list = new ArrayList<ListItem>();
+                            List<ListItem>  list = new ArrayList<ListItem>();
                             for (int i = 0; i < jsonArray.length(); i++) {
                                 JSONObject jsonObject = jsonArray.getJSONObject(i);
                                 String seq =  jsonObject.getString("seq");
-                                String nm =  jsonObject.getString("nm");
-                                String juso =  jsonObject.getString("juso");
-                                String tel =  jsonObject.getString("tel");
-                                String dong =  jsonObject.getString("dong");
-                                String cont =  jsonObject.getString("cont");
-                                ListItem vo = new ListItem(seq,nm,tel,juso,dong, cont, null,false ,null);
+                                String subject =  jsonObject.getString("subject");
+                                String msg =  jsonObject.getString("msg");
+                                String updt =  jsonObject.getString("updt");
+                                ListItem vo = new ListItem(seq,subject,msg,updt,null, null,null,false ,null);
                                 list.add(vo);
 
                             }
@@ -212,5 +201,6 @@ public class QalistFrg extends Fragment    implements OnListItemClickListener {
 
         return null;
     }
+
 }
 

@@ -24,7 +24,8 @@ import com.google.gson.Gson;
 import com.kmetabus.forwarder.R;
 import com.kmetabus.forwarder.service.ServerResponse;
 import com.kmetabus.forwarder.service.Util;
-import com.kmetabus.forwarder.vo.Psale;
+import com.kmetabus.forwarder.vo.Forwarder;
+import com.kmetabus.forwarder.vo.Qa;
 
 import java.io.IOException;
 
@@ -34,13 +35,12 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 /*
-개인 급매 정보 등록
+forwarder 업체등록
  */
-public class PersaleInFrg extends Fragment   {
-    private EditText cont;
-    private EditText nm;
-    private EditText tel;
-    private EditText addr;
+public class qaInFrg extends Fragment   {
+    private EditText nicknm;
+    private EditText subject;
+    private EditText msg;
     private Button savebtn;
     private RecyclerView recyclerView;
 
@@ -49,13 +49,13 @@ public class PersaleInFrg extends Fragment   {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         //layout
-        View view = inflater.inflate(R.layout.frg_forwin, container, false); // 개인 급매 등록화면
+        View view = inflater.inflate(R.layout.frg_qain, container, false); // qa 등록화면
 
-        savebtn = (Button)view.findViewById(R.id.qsale_btn); // 저장버튼
-        cont = (EditText)view.findViewById(R.id.psale_cont); // 급매정보
-        nm = (EditText)view.findViewById(R.id.psale_nm); // 이름
-        tel = (EditText)view.findViewById(R.id.psale_tel); // 연락처
-        addr = (EditText)view.findViewById(R.id.psale_addr); // 주소
+        savebtn = (Button)view.findViewById(R.id.qasave_btn); // 저장버튼
+        msg = (EditText)view.findViewById(R.id.qa_cont); //
+        subject = (EditText)view.findViewById(R.id.qa_subject);     //
+        nicknm = (EditText)view.findViewById(R.id.qa_nm);     //
+
         return view;
     }
     // onCreateView() 호출 직후에 시스템에 의해 호출
@@ -67,34 +67,30 @@ public class PersaleInFrg extends Fragment   {
         savebtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String scont = cont.getText().toString();
-                String snm = nm.getText().toString();
-                String stel = tel.getText().toString();
-                String saddr = addr.getText().toString();
-
+                String smsg = msg.getText().toString();
+                String subject1 = subject.getText().toString();
+                String nm = nicknm.getText().toString();
                 //Util.alert(getContext(), finalSeq);
                 ServerResponse req = new ServerResponse();
-                Psale vo = new Psale();
-
-                vo.setCont(scont);
-                vo.setNm(snm);
-                vo.setTel(stel);
-                vo.setAddr(saddr);
+                Qa vo = new Qa();
+                vo.setMsg(smsg);
+                vo.setNicknm(nm);
+                vo.setSubject(subject1);
 
                 // Create an instance of Gson
                 Gson gson = new Gson();
 
                 // Convert the VO to JSON
                 String json = gson.toJson(vo);
-                req.savePsale(json, new Callback<ResponseBody>() {
+                req.saveFqa(json, new Callback<ResponseBody>() {
                     public void onResponse(Call<ResponseBody> call, Response<ResponseBody> response) {
                         if (response.isSuccessful()) {
                             try {
                                 String jsonString = response.body().string();
                                 //Log.i("qsale 저장", jsonString);
                                 Util.alert(getContext(),"저장성공!");
-                                NavHostFragment.findNavController(PersaleInFrg.this)
-                                        .navigate(R.id.action_perIn_to_perlist);// list로 가기
+                                NavHostFragment.findNavController(qaInFrg.this)
+                                        .navigate(R.id.action_frg_qain_to_list);// list로 가기
                                 showAd();
 
                             } catch (IOException e) {
@@ -144,8 +140,7 @@ public class PersaleInFrg extends Fragment   {
                         Log.i("광고", loadAdError.getMessage());
                         mInterstitialAd = null;
                     }
-        }); // end
+                }); // end
 
     }
 }
-

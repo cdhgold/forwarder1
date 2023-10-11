@@ -51,7 +51,7 @@ public class MainFrg extends Fragment   {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(MainFrg.this)
-                        .navigate(R.id.action_main_to_qalist);
+                        .navigate(R.id.action_main_to_qa);
             }
         });
         // job
@@ -60,7 +60,7 @@ public class MainFrg extends Fragment   {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(MainFrg.this)
-                        .navigate(R.id.action_main_to_perlist);
+                        .navigate(R.id.action_main_to_job);
             }
         });
         // kmetabus
@@ -69,7 +69,7 @@ public class MainFrg extends Fragment   {
             @Override
             public void onClick(View v) {
                 NavHostFragment.findNavController(MainFrg.this)
-                        .navigate(R.id.action_main_to_perlist);
+                        .navigate(R.id.action_main_to_kmetabus);
             }
         });
     }

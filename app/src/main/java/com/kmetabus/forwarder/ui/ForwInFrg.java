@@ -7,22 +7,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.ProgressBar;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.navigation.fragment.NavHostFragment;
-import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.AdSize;
 import com.google.android.gms.ads.AdView;
 import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
-import com.google.android.gms.ads.initialization.InitializationStatus;
-import com.google.android.gms.ads.initialization.OnInitializationCompleteListener;
 import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 import com.google.gson.Gson;
@@ -30,18 +25,8 @@ import com.kmetabus.forwarder.R;
 import com.kmetabus.forwarder.service.ServerResponse;
 import com.kmetabus.forwarder.service.Util;
 import com.kmetabus.forwarder.vo.Forwarder;
-import com.kmetabus.forwarder.vo.ListAdapter;
-import com.kmetabus.forwarder.vo.ListItem;
-import com.kmetabus.forwarder.vo.OnListItemClickListener;
-import com.kmetabus.forwarder.vo.Psale;
-
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
 
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 import okhttp3.ResponseBody;
 import retrofit2.Call;
@@ -112,7 +97,7 @@ public class ForwInFrg extends Fragment   {
                                 //Log.i("qsale 저장", jsonString);
                                 Util.alert(getContext(),"저장성공!");
                                 NavHostFragment.findNavController(ForwInFrg.this)
-                                        .navigate(R.id.action_perIn_to_perlist);// list로 가기
+                                        .navigate(R.id.action_frg_forwin_to_list);// list로 가기
                                 showAd();
 
                             } catch (IOException e) {

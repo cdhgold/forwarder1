@@ -13,7 +13,7 @@ import androidx.annotation.NonNull;
 import androidx.navigation.Navigation;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.kmetabus.bugongsan.R;
+import com.kmetabus.forwarder.R;
 
 import java.util.List;
 
@@ -69,7 +69,7 @@ public class ListAdapter extends RecyclerView.Adapter<ListAdapter.ListViewHolder
                     Bundle bundle = new Bundle();
                     bundle.putString("seq", seq);
                     // Navigate 메소드에 bundle을 추가합니다.
-                    Navigation.findNavController(v).navigate(R.id.action_main_to_qsalein, bundle);
+                    Navigation.findNavController(v).navigate(R.id.action_main_to_forwin, bundle);
                 } catch (Exception e) {
                     throw new RuntimeException(e);
                 }

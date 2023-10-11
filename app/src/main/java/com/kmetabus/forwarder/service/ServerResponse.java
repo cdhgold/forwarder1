@@ -44,6 +44,19 @@ public class ServerResponse {
         call = apiService.saveForwarder(requestBody);
         call.enqueue(callback);
     }
-
+    // qa
+    public  void getFqa(String search, String page, Callback<ResponseBody> callback){
+        List<ListItem> list= null;
+        apiService = retrofit.create(ApiService.class);
+        call = apiService.getFqa(search, page );
+        call.enqueue(callback);
+    }
+    public  void saveFqa(String json , Callback<ResponseBody> callback){
+        List<ListItem> list= null;
+        apiService = retrofit.create(ApiService.class);
+        RequestBody requestBody = RequestBody.create(json, MediaType.parse("application/json; charset=utf-8"));
+        call = apiService.saveFqa(requestBody);
+        call.enqueue(callback);
+    }
 
 }

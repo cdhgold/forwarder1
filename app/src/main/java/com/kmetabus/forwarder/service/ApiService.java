@@ -12,13 +12,24 @@ import retrofit2.http.Path;
 public interface ApiService {
     // 포워더업체정보 조회 (업체명 또는 주소
     @Headers("Accept: application/json")
-    @GET("/Forward/list/{forwarder}/{addr}")
+    @GET("/forward/flist/{forwarder}/{addr}")
     Call<ResponseBody> getForwarder(@Path("forwarder") String forwarder, @Path("addr") String addr);
 
     // 신규업체등록
     @Headers("Accept: application/json")
-    @POST("/Forward/save/")
+    @POST("/forward/save/")
     Call<ResponseBody> saveForwarder( @Body RequestBody forwarder);
+    //qa
+    // 조회
+    @Headers("Accept: application/json")
+    @GET("/forward/fqalist/{search}/{page}")
+    Call<ResponseBody> getFqa(@Path("search") String search,@Path("page") String page  );
+
+    // 신규업체등록
+    @Headers("Accept: application/json")
+    @POST("/forward/fqasave/")
+    Call<ResponseBody> saveFqa( @Body RequestBody qa);
+
 
 
 }

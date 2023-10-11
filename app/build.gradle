@@ -29,8 +29,8 @@ android {
 }
 
 dependencies {
-
-    implementation files('libs/lombok.jar')
+    annotationProcessor 'org.projectlombok:lombok:1.18.22' // (버전은 업데이트 되었을 수 있습니다. 확인 후 사용하세요)
+    implementation 'org.projectlombok:lombok:1.18.22'
     implementation 'com.google.android.gms:play-services-ads:22.1.0'
     implementation 'com.squareup.okhttp3:okhttp:4.9.3'
     implementation 'com.squareup.retrofit2:retrofit:2.9.0'
